@@ -1,0 +1,4 @@
+/home/kors/DebloaterApp/bin/Release/net8.0/win-x64/publish/DebloaterApp.pdb
+/home/kors/DebloaterApp/bin/Release/net8.0/win-x64/publish/libHarfBuzzSharp.pdb
+/home/kors/DebloaterApp/bin/Release/net8.0/win-x64/publish/libSkiaSharp.pdb
+/home/kors/DebloaterApp/bin/Release/net8.0/win-x64/publish/DebloaterApp.exe
