@@ -32,16 +32,6 @@
                         </TextBlock>
                     </CheckBox>
 
-                    <!-- More apps can be added here -->
-                    <CheckBox x:Name="EdgeCheckBox" 
-                              Margin="10,10,10,10"
-                              FontSize="14">
-                        <TextBlock>
-                            <Run FontWeight="Bold">Microsoft Edge</Run>
-                            <Run Foreground="Gray"> - Web browser</Run>
-                        </TextBlock>
-                    </CheckBox>
-
                     <CheckBox x:Name="OneDriveCheckBox" 
                               Margin="10,10,10,10"
                               FontSize="14">

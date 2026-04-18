@@ -22,7 +22,6 @@ public partial class MainWindow : Window
     {
         var deleteButton = this.FindControl<Button>("DeleteButton");
         var copilotCheckBox = this.FindControl<CheckBox>("CopilotCheckBox");
-        var edgeCheckBox = this.FindControl<CheckBox>("EdgeCheckBox");
         var oneDriveCheckBox = this.FindControl<CheckBox>("OneDriveCheckBox");
 
         if (deleteButton != null)
@@ -33,8 +32,6 @@ public partial class MainWindow : Window
         // Map apps to their uninstall commands
         if (copilotCheckBox != null)
             appsToUninstall[copilotCheckBox] = "Microsoft.Copilot";
-        if (edgeCheckBox != null)
-            appsToUninstall[edgeCheckBox] = "Microsoft.MicrosoftEdge";
         if (oneDriveCheckBox != null)
             appsToUninstall[oneDriveCheckBox] = "Microsoft.OneDrive";
     }
