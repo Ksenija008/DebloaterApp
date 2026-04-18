@@ -303,31 +303,65 @@ public partial class MainWindow : Window
 
                 if (Directory.Exists(folderPath))
                 {
-                    var files = Directory.GetFiles(folderPath);
                     int deletedCount = 0;
+                    int failedCount = 0;
                     long freedSpace = 0;
 
-                    foreach (var file in files)
+                    // Recursively delete all files in subdirectories
+                    try
                     {
-                        try
+                        var allFiles = Directory.EnumerateFiles(folderPath, "*", SearchOption.AllDirectories);
+                        foreach (var file in allFiles)
                         {
-                            var fileInfo = new FileInfo(file);
-                            freedSpace += fileInfo.Length;
-                            File.Delete(file);
-                            deletedCount++;
-                        }
-                        catch
-                        {
-                            // Skip files that can't be deleted (in use)
+                            try
+                            {
+                                var fileInfo = new FileInfo(file);
+                                File.Delete(file);
+                                freedSpace += fileInfo.Length;
+                                deletedCount++;
+                            }
+                            catch
+                            {
+                                failedCount++;
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        AppendOutput($"⚠ Error scanning folder: {ex.Message}");
+                    }
+
+                    // Try to delete empty subdirectories (from deepest first)
+                    try
+                    {
+                        var allDirs = Directory.EnumerateDirectories(folderPath, "*", SearchOption.AllDirectories)
+                            .OrderByDescending(d => d.Length); // Delete deepest folders first
+                        foreach (var dir in allDirs)
+                        {
+                            try
+                            {
+                                if (Directory.GetFileSystemEntries(dir).Length == 0)
+                                    Directory.Delete(dir);
+                            }
+                            catch
+                            {
+                                // Ignore - folder not empty or locked
+                            }
+                        }
+                    }
+                    catch { }
 
                     var freedMB = freedSpace / (1024 * 1024);
-                    AppendOutput($"Deleted {deletedCount} files, freed ~{freedMB}MB");
+                    if (deletedCount > 0)
+                        AppendOutput($"Deleted {deletedCount} files, freed ~{freedMB}MB");
+                    if (failedCount > 0)
+                        AppendOutput($"⚠ Skipped {failedCount} files (locked by Windows/apps)");
+                    if (deletedCount == 0 && failedCount == 0)
+                        AppendOutput("Folder already clean");
                 }
                 else
                 {
-                    AppendOutput($"Folder not found or already clean");
+                    AppendOutput($"Folder not found");
                 }
             });
         }
