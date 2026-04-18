@@ -2,15 +2,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="750"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="750"
         x:Class="DebloaterApp.MainWindow"
         Title="Windows Debloater"
-        Width="650"
+        Width="1200"
         Height="750"
         Background="#1a1a1a">
 
     <Border Padding="24">
-        <StackPanel Spacing="20">
+        <Grid ColumnDefinitions="*,380">
+            <StackPanel Grid.Column="0" Spacing="20">
             <!-- Header Section -->
             <StackPanel Spacing="8">
                 <TextBlock Classes="Title" 
@@ -166,33 +167,6 @@
                 </Border>
             </StackPanel>
 
-            <!-- Output Terminal Section -->
-            <StackPanel Spacing="8">
-                <TextBlock Text="Command Output" 
-                           FontSize="12" 
-                           FontWeight="Bold" 
-                           Foreground="#A0A0A0"
-                           Margin="0,0,0,4" />
-                
-                <Border Background="#0d1117" 
-                        BorderBrush="#30363d" 
-                        BorderThickness="1" 
-                        CornerRadius="6"
-                        Padding="0">
-                    <TextBox x:Name="OutputTerminal"
-                             Foreground="#58a6ff"
-                             Background="#0d1117"
-                             BorderThickness="0"
-                             FontFamily="Cascadia Code, Courier New"
-                             FontSize="11"
-                             Height="180"
-                             Padding="12"
-                             IsReadOnly="True"
-                             TextWrapping="Wrap"
-                             Text="Waiting for action..." />
-                </Border>
-            </StackPanel>
-
             <!-- Action Button -->
             <Button x:Name="DeleteButton" 
                     Content="Remove Selected Apps"
@@ -200,5 +174,32 @@
                     FontSize="15"
                     FontWeight="SemiBold" />
         </StackPanel>
+
+        <!-- Output Terminal Section (Right Side) -->
+        <StackPanel Grid.Column="1" Spacing="8" Margin="16,0,0,0">
+            <TextBlock Text="Command Output" 
+                       FontSize="12" 
+                       FontWeight="Bold" 
+                       Foreground="#A0A0A0"
+                       Margin="0,0,0,4" />
+            
+            <Border Background="#0d1117" 
+                    BorderBrush="#30363d" 
+                    BorderThickness="1" 
+                    CornerRadius="6"
+                    Padding="0">
+                <TextBox x:Name="OutputTerminal"
+                         Foreground="#58a6ff"
+                         Background="#0d1117"
+                         BorderThickness="0"
+                         FontFamily="Cascadia Code, Courier New"
+                         FontSize="11"
+                         Padding="12"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap"
+                         Text="Waiting for action..." />
+            </Border>
+        </StackPanel>
+        </Grid>
     </Border>
 </Window>
