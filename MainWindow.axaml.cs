@@ -3,6 +3,7 @@ using Avalonia.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ public partial class MainWindow : Window
         { "Microsoft.BingWeather", "Weather" },
         { "Microsoft.News", "News" },
         { "Microsoft.ZuneMusic", "Media Player" },
-        { "Microsoft.XboxGamingOverlay", "Xbox Gaming" },
+        { "Microsoft.XboxApp", "Xbox Gaming" },
         { "Microsoft.549981C3F5F10", "Cortana" },
         { "Microsoft.MicrosoftSolitaireCollection", "Solitaire" },
         { "king.com.CandyCrush", "Candy Crush" },
@@ -74,7 +75,7 @@ public partial class MainWindow : Window
         if (mediaPlayerCheckBox != null)
             appsToUninstall[mediaPlayerCheckBox] = "Microsoft.ZuneMusic";
         if (xboxCheckBox != null)
-            appsToUninstall[xboxCheckBox] = "Microsoft.XboxGamingOverlay";
+            appsToUninstall[xboxCheckBox] = "Microsoft.XboxApp";
         if (cortanaCheckBox != null)
             appsToUninstall[cortanaCheckBox] = "Microsoft.549981C3F5F10";
         if (gamesCheckBox != null)
@@ -85,6 +86,21 @@ public partial class MainWindow : Window
             appsToUninstall[moviesCheckBox] = "Microsoft.ZuneVideo";
         if (photosCheckBox != null)
             appsToUninstall[photosCheckBox] = "Microsoft.Windows.Photos";
+        
+        // Cleanup items
+        var tempCheckBox = this.FindControl<CheckBox>("TempFolderCheckBox");
+        var browserCacheCheckBox = this.FindControl<CheckBox>("BrowserCacheCheckBox");
+        var recentFilesCheckBox = this.FindControl<CheckBox>("RecentFilesCheckBox");
+        var thumbnailCacheCheckBox = this.FindControl<CheckBox>("ThumbnailCacheCheckBox");
+        
+        if (tempCheckBox != null)
+            appsToUninstall[tempCheckBox] = "CLEANUP_TEMP";
+        if (browserCacheCheckBox != null)
+            appsToUninstall[browserCacheCheckBox] = "CLEANUP_BROWSER_CACHE";
+        if (recentFilesCheckBox != null)
+            appsToUninstall[recentFilesCheckBox] = "CLEANUP_RECENT_FILES";
+        if (thumbnailCacheCheckBox != null)
+            appsToUninstall[thumbnailCacheCheckBox] = "CLEANUP_THUMBNAIL_CACHE";
     }
 
     /// <summary>
@@ -219,6 +235,13 @@ public partial class MainWindow : Window
 
     private async Task UninstallAppAsync(string appId)
     {
+        // Handle cleanup operations
+        if (appId.StartsWith("CLEANUP_"))
+        {
+            await CleanupSystemCacheAsync(appId);
+            return;
+        }
+
         // First try winget
         try
         {
@@ -236,6 +259,57 @@ public partial class MainWindow : Window
                 throw new Exception($"Winget: {wingetError.Message}. Appx: {appxError.Message}");
             }
         }
+    }
+
+    private async Task CleanupSystemCacheAsync(string cleanupType)
+    {
+        await Task.Run(() =>
+        {
+            try
+            {
+                string folderPath = cleanupType switch
+                {
+                    "CLEANUP_TEMP" => Environment.GetEnvironmentVariable("TEMP") ?? Path.Combine(Environment.GetEnvironmentVariable("SystemRoot") ?? "C:\\Windows", "Temp"),
+                    "CLEANUP_BROWSER_CACHE" => Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA") ?? "", "Microsoft\\Edge\\User Data\\Default\\Cache"),
+                    "CLEANUP_RECENT_FILES" => Path.Combine(Environment.GetEnvironmentVariable("APPDATA") ?? "", "Microsoft\\Windows\\Recent"),
+                    "CLEANUP_THUMBNAIL_CACHE" => Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA") ?? "", "Microsoft\\Windows\\Explorer"),
+                    _ => throw new Exception($"Unknown cleanup type: {cleanupType}")
+                };
+
+                if (Directory.Exists(folderPath))
+                {
+                    var files = Directory.GetFiles(folderPath);
+                    int deletedCount = 0;
+                    long freedSpace = 0;
+
+                    foreach (var file in files)
+                    {
+                        try
+                        {
+                            var fileInfo = new FileInfo(file);
+                            freedSpace += fileInfo.Length;
+                            File.Delete(file);
+                            deletedCount++;
+                        }
+                        catch
+                        {
+                            // Skip files that can't be deleted (in use)
+                        }
+                    }
+
+                    var freedMB = freedSpace / (1024 * 1024);
+                    AppendOutput($"Deleted {deletedCount} files, freed ~{freedMB}MB");
+                }
+                else
+                {
+                    AppendOutput($"Folder not found or already clean");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Cleanup failed: {ex.Message}");
+            }
+        });
     }
 
     private ProcessStartInfo GetWingetCommand(string appId)

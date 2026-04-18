@@ -222,6 +222,89 @@
                 </Border>
             </StackPanel>
 
+            <!-- System Cleanup Section -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="System Cleanup" 
+                           FontSize="12" 
+                           FontWeight="Bold" 
+                           Foreground="#A0A0A0"
+                           Margin="0,0,0,4" />
+                
+                <Border Background="#2a2a2a" 
+                        BorderBrush="#3a3a3a" 
+                        BorderThickness="1" 
+                        CornerRadius="8"
+                        Padding="0">
+                    <StackPanel Spacing="2">
+                        <!-- Temp Folder -->
+                        <Border Background="Transparent" 
+                                Padding="16,14"
+                                BorderBrush="#3a3a3a"
+                                BorderThickness="0,0,0,1">
+                            <CheckBox x:Name="TempFolderCheckBox" 
+                                      Padding="0">
+                                <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                    <TextBlock Text="🗑️" FontSize="20" VerticalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center">
+                                        <Run Text="Windows Temp Folder" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                        <Run Text=" (Up to 2GB)" Foreground="#888888" FontSize="12" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </CheckBox>
+                        </Border>
+
+                        <!-- Browser Cache -->
+                        <Border Background="Transparent" 
+                                Padding="16,14"
+                                BorderBrush="#3a3a3a"
+                                BorderThickness="0,0,0,1">
+                            <CheckBox x:Name="BrowserCacheCheckBox" 
+                                      Padding="0">
+                                <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                    <TextBlock Text="🌐" FontSize="20" VerticalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center">
+                                        <Run Text="Browser Cache (Edge/Chrome)" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                        <Run Text=" (Up to 2GB)" Foreground="#888888" FontSize="12" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </CheckBox>
+                        </Border>
+
+                        <!-- Recent Files -->
+                        <Border Background="Transparent" 
+                                Padding="16,14"
+                                BorderBrush="#3a3a3a"
+                                BorderThickness="0,0,0,1">
+                            <CheckBox x:Name="RecentFilesCheckBox" 
+                                      Padding="0">
+                                <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                    <TextBlock Text="📂" FontSize="20" VerticalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center">
+                                        <Run Text="Recent Files Cache" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                        <Run Text=" (~50MB)" Foreground="#888888" FontSize="12" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </CheckBox>
+                        </Border>
+
+                        <!-- Thumbnail Cache -->
+                        <Border Background="Transparent" 
+                                Padding="16,14">
+                            <CheckBox x:Name="ThumbnailCacheCheckBox" 
+                                      Padding="0">
+                                <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                    <TextBlock Text="🖼️" FontSize="20" VerticalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center">
+                                        <Run Text="Thumbnail Cache" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                        <Run Text=" (Up to 500MB)" Foreground="#888888" FontSize="12" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </CheckBox>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
             <!-- Status Section -->
             <StackPanel Spacing="8">
                 <TextBlock Text="Status" 
