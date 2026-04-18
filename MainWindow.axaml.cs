@@ -80,7 +80,7 @@ public partial class MainWindow : Window
         {
             foreach (var appId in appIds)
             {
-                statusMessage.Text = $"Removing {appId}...";
+                statusMessage.Text = $"Removing {appId}... (this may take a moment)";
                 await UninstallAppAsync(appId);
             }
 
@@ -127,7 +127,7 @@ public partial class MainWindow : Window
         var processInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -Command \"winget uninstall --id {appId} -e --accept-source-agreements --accept-package-agreements -h\"",
+            Arguments = $"-NoProfile -Command \"winget uninstall --id {appId} -e --accept-source-agreements --accept-package-agreements -h 2>&1\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -138,7 +138,7 @@ public partial class MainWindow : Window
         {
             if (process != null)
             {
-                using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
+                using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(3)))
                 {
                     try
                     {
@@ -147,7 +147,7 @@ public partial class MainWindow : Window
                     catch (OperationCanceledException)
                     {
                         process.Kill();
-                        throw new Exception($"Winget timed out after 2 minutes.");
+                        throw new Exception($"Winget timed out after 3 minutes.");
                     }
                 }
 
@@ -156,7 +156,8 @@ public partial class MainWindow : Window
 
                 if (process.ExitCode != 0)
                 {
-                    throw new Exception($"Winget failed with exit code {process.ExitCode}");
+                    var fullMessage = string.IsNullOrEmpty(output) ? error : output;
+                    throw new Exception($"Winget failed: {fullMessage.Substring(0, Math.Min(200, fullMessage.Length))}");
                 }
             }
         }
@@ -165,10 +166,11 @@ public partial class MainWindow : Window
     private async Task UninstallViaAppxAsync(string appId)
     {
         // For built-in Windows apps, use PowerShell Get-AppxPackage
+        // This searches for packages matching the pattern and removes them
         var processInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -Command \"Get-AppxPackage *{appId}* -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; exit 0\"",
+            Arguments = $"-NoProfile -Command \"$packages = Get-AppxPackage -AllUsers | Where-Object {{$_.Name -like '*{appId}*'}}; if ($packages) {{ $packages | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; 'Removed'; exit 0 }} else {{ 'Not found'; exit 1 }}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -179,7 +181,7 @@ public partial class MainWindow : Window
         {
             if (process != null)
             {
-                using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
+                using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(3)))
                 {
                     try
                     {
@@ -192,13 +194,13 @@ public partial class MainWindow : Window
                     }
                 }
 
-                var output = process.StandardOutput.ReadToEnd();
+                var output = process.StandardOutput.ReadToEnd().Trim();
                 var error = process.StandardError.ReadToEnd();
 
-                // PowerShell removal exit code 0 is success
-                if (process.ExitCode != 0)
+                // Check if app was found and removed
+                if (output.Contains("Not found") || (process.ExitCode != 0 && string.IsNullOrEmpty(output)))
                 {
-                    throw new Exception($"App removal failed with exit code {process.ExitCode}");
+                    throw new Exception($"App '{appId}' not found on system or removal failed.");
                 }
             }
         }
