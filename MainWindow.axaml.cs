@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -113,6 +114,13 @@ public partial class MainWindow : Window
     {
         if (outputTerminal == null) return;
         
+        // Dispatch to UI thread if not already on it
+        if (!Dispatcher.UIThread.CheckAccess())
+        {
+            Dispatcher.UIThread.InvokeAsync(() => AppendOutput(text));
+            return;
+        }
+        
         var timestamp = DateTime.Now.ToString("HH:mm:ss");
         var line = $"[{timestamp}] {text}\n";
         
@@ -160,6 +168,14 @@ public partial class MainWindow : Window
     private void UpdateStatus(string message, Color color)
     {
         if (statusMessage == null) return;
+        
+        // Dispatch to UI thread if not already on it
+        if (!Dispatcher.UIThread.CheckAccess())
+        {
+            Dispatcher.UIThread.InvokeAsync(() => UpdateStatus(message, color));
+            return;
+        }
+        
         statusMessage.Text = message;
         statusMessage.Foreground = new SolidColorBrush(color);
     }
@@ -272,9 +288,9 @@ public partial class MainWindow : Window
 
     private async Task CleanupSystemCacheAsync(string cleanupType)
     {
-        await Task.Run(() =>
+        try
         {
-            try
+            await Task.Run(() =>
             {
                 string folderPath = cleanupType switch
                 {
@@ -313,12 +329,12 @@ public partial class MainWindow : Window
                 {
                     AppendOutput($"Folder not found or already clean");
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Cleanup failed: {ex.Message}");
-            }
-        });
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Cleanup failed: {ex.Message}");
+        }
     }
 
     private ProcessStartInfo GetWingetCommand(string appId)
