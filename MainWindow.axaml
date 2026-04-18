@@ -42,13 +42,16 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="CopilotCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="4">
-                                        <TextBlock Text="Microsoft Copilot" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="#FFFFFF" />
-                                        <TextBlock Text="AI-powered assistant" 
-                                                   FontSize="12" 
-                                                   Foreground="#888888" />
+                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                        <TextBlock Text="✨" FontSize="20" VerticalAlignment="Center" />
+                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="Microsoft Copilot" 
+                                                       FontWeight="SemiBold" 
+                                                       Foreground="#FFFFFF" />
+                                            <TextBlock Text="AI-powered assistant" 
+                                                       FontSize="12" 
+                                                       Foreground="#888888" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -60,13 +63,16 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="OneDriveCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="4">
-                                        <TextBlock Text="OneDrive" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="#FFFFFF" />
-                                        <TextBlock Text="Cloud storage service" 
-                                                   FontSize="12" 
-                                                   Foreground="#888888" />
+                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                        <TextBlock Text="☁️" FontSize="20" VerticalAlignment="Center" />
+                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="OneDrive" 
+                                                       FontWeight="SemiBold" 
+                                                       Foreground="#FFFFFF" />
+                                            <TextBlock Text="Cloud storage service" 
+                                                       FontSize="12" 
+                                                       Foreground="#888888" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -78,13 +84,16 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="CalculatorCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="4">
-                                        <TextBlock Text="Calculator" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="#FFFFFF" />
-                                        <TextBlock Text="Windows Calculator app" 
-                                                   FontSize="12" 
-                                                   Foreground="#888888" />
+                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                        <TextBlock Text="🧮" FontSize="20" VerticalAlignment="Center" />
+                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="Calculator" 
+                                                       FontWeight="SemiBold" 
+                                                       Foreground="#FFFFFF" />
+                                            <TextBlock Text="Windows Calculator app" 
+                                                       FontSize="12" 
+                                                       Foreground="#888888" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -96,13 +105,16 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="WeatherCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="4">
-                                        <TextBlock Text="Weather" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="#FFFFFF" />
-                                        <TextBlock Text="Bing Weather app" 
-                                                   FontSize="12" 
-                                                   Foreground="#888888" />
+                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                        <TextBlock Text="🌤️" FontSize="20" VerticalAlignment="Center" />
+                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="Weather" 
+                                                       FontWeight="SemiBold" 
+                                                       Foreground="#FFFFFF" />
+                                            <TextBlock Text="Bing Weather app" 
+                                                       FontSize="12" 
+                                                       Foreground="#888888" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -114,13 +126,16 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="NewsCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="4">
-                                        <TextBlock Text="News" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="#FFFFFF" />
-                                        <TextBlock Text="Microsoft News app" 
-                                                   FontSize="12" 
-                                                   Foreground="#888888" />
+                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                        <TextBlock Text="📰" FontSize="20" VerticalAlignment="Center" />
+                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="News" 
+                                                       FontWeight="SemiBold" 
+                                                       Foreground="#FFFFFF" />
+                                            <TextBlock Text="Microsoft News app" 
+                                                       FontSize="12" 
+                                                       Foreground="#888888" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -130,13 +145,16 @@
                                     Padding="16,14">
                                 <CheckBox x:Name="MediaPlayerCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="4">
-                                        <TextBlock Text="Media Player" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="#FFFFFF" />
-                                        <TextBlock Text="Windows Media Player" 
-                                                   FontSize="12" 
-                                                   Foreground="#888888" />
+                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                        <TextBlock Text="🎵" FontSize="20" VerticalAlignment="Center" />
+                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="Media Player" 
+                                                       FontWeight="SemiBold" 
+                                                       Foreground="#FFFFFF" />
+                                            <TextBlock Text="Windows Media Player" 
+                                                       FontSize="12" 
+                                                       Foreground="#888888" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
