@@ -15,13 +15,17 @@ public partial class MainWindow : Window
     private readonly Dictionary<string, string> appRegistry = new()
     {
         { "Microsoft.Copilot", "Copilot" },
-        { "Microsoft.OneDrive", "OneDrive" }
+        { "Microsoft.OneDrive", "OneDrive" },
+        { "Microsoft.WindowsCalculator", "Calculator" },
+        { "Microsoft.BingWeather", "Weather" },
+        { "Microsoft.News", "News" },
+        { "Microsoft.ZuneMusic", "Media Player" }
     };
 
     private Dictionary<CheckBox, string> appsToUninstall = new();
     private Button? deleteButton;
     private TextBlock? statusMessage;
-    private TextBlock? outputTerminal;
+    private TextBox? outputTerminal;
 
     public MainWindow()
     {
@@ -33,9 +37,13 @@ public partial class MainWindow : Window
     {
         deleteButton = this.FindControl<Button>("DeleteButton");
         statusMessage = this.FindControl<TextBlock>("StatusMessage");
-        outputTerminal = this.FindControl<TextBlock>("OutputTerminal");
+        outputTerminal = this.FindControl<TextBox>("OutputTerminal");
         var copilotCheckBox = this.FindControl<CheckBox>("CopilotCheckBox");
         var oneDriveCheckBox = this.FindControl<CheckBox>("OneDriveCheckBox");
+        var calculatorCheckBox = this.FindControl<CheckBox>("CalculatorCheckBox");
+        var weatherCheckBox = this.FindControl<CheckBox>("WeatherCheckBox");
+        var newsCheckBox = this.FindControl<CheckBox>("NewsCheckBox");
+        var mediaPlayerCheckBox = this.FindControl<CheckBox>("MediaPlayerCheckBox");
 
         if (deleteButton != null)
         {
@@ -46,6 +54,14 @@ public partial class MainWindow : Window
             appsToUninstall[copilotCheckBox] = "Microsoft.Copilot";
         if (oneDriveCheckBox != null)
             appsToUninstall[oneDriveCheckBox] = "Microsoft.OneDrive";
+        if (calculatorCheckBox != null)
+            appsToUninstall[calculatorCheckBox] = "Microsoft.WindowsCalculator";
+        if (weatherCheckBox != null)
+            appsToUninstall[weatherCheckBox] = "Microsoft.BingWeather";
+        if (newsCheckBox != null)
+            appsToUninstall[newsCheckBox] = "Microsoft.News";
+        if (mediaPlayerCheckBox != null)
+            appsToUninstall[mediaPlayerCheckBox] = "Microsoft.ZuneMusic";
     }
 
     /// <summary>

@@ -2,74 +2,203 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="750"
         x:Class="DebloaterApp.MainWindow"
         Title="Windows Debloater"
-        Width="600"
-        Height="500">
-    <Border Padding="20">
-        <StackPanel>
-            <!-- Title -->
-            <TextBlock FontSize="24" FontWeight="Bold" Margin="0,0,0,20">
-                Windows Debloater
-            </TextBlock>
+        Width="650"
+        Height="750"
+        Background="#1a1a1a">
 
-            <!-- Description -->
-            <TextBlock Text="Select the bloatware to remove from your system:" 
-                       Margin="0,0,0,15"
-                       TextWrapping="Wrap"/>
+    <Border Padding="24">
+        <StackPanel Spacing="20">
+            <!-- Header Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="Title" 
+                           Text="Windows Debloater" />
+                <TextBlock Classes="Description" 
+                           Text="Select bloatware to remove from your system" />
+            </StackPanel>
 
-            <!-- Scrollable List of Apps -->
-            <ScrollViewer Height="300" Margin="0,0,0,20" Background="#f5f5f5">
-                <StackPanel x:Name="AppsPanel">
-                    <!-- Copilot Checkbox -->
-                    <CheckBox x:Name="CopilotCheckBox" 
-                              Margin="10,10,10,10"
-                              FontSize="14">
-                        <TextBlock>
-                            <Run FontWeight="Bold">Microsoft Copilot</Run>
-                            <Run Foreground="Gray"> - AI assistant</Run>
-                        </TextBlock>
-                    </CheckBox>
+            <!-- Apps Section -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Applications" 
+                           FontSize="12" 
+                           FontWeight="Bold" 
+                           Foreground="#A0A0A0"
+                           Margin="0,0,0,4" />
+                
+                <Border Background="#2a2a2a" 
+                        BorderBrush="#3a3a3a" 
+                        BorderThickness="1" 
+                        CornerRadius="8"
+                        Padding="0">
+                    <ScrollViewer Height="280">
+                        <StackPanel Spacing="2">
+                            <!-- Copilot -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="CopilotCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="Microsoft Copilot" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="#FFFFFF" />
+                                        <TextBlock Text="AI-powered assistant" 
+                                                   FontSize="12" 
+                                                   Foreground="#888888" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
 
-                    <CheckBox x:Name="OneDriveCheckBox" 
-                              Margin="10,10,10,10"
-                              FontSize="14">
-                        <TextBlock>
-                            <Run FontWeight="Bold">OneDrive</Run>
-                            <Run Foreground="Gray"> - Cloud storage</Run>
-                        </TextBlock>
-                    </CheckBox>
-                </StackPanel>
-            </ScrollViewer>
+                            <!-- OneDrive -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="OneDriveCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="OneDrive" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="#FFFFFF" />
+                                        <TextBlock Text="Cloud storage service" 
+                                                   FontSize="12" 
+                                                   Foreground="#888888" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
 
-            <!-- Status Message -->
-            <TextBlock x:Name="StatusMessage" 
-                       Margin="0,0,0,15"
-                       TextWrapping="Wrap"
-                       Foreground="Gray"
-                       MinHeight="40"/>
+                            <!-- Calculator -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="CalculatorCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="Calculator" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="#FFFFFF" />
+                                        <TextBlock Text="Windows Calculator app" 
+                                                   FontSize="12" 
+                                                   Foreground="#888888" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
 
-            <!-- Output Terminal -->
-            <TextBlock Text="Command Output:" 
-                       Margin="0,0,0,5"
-                       FontSize="12"
-                       FontWeight="Bold"/>
-            <ScrollViewer Height="150" Margin="0,0,0,15" Background="#1e1e1e" BorderBrush="#ccc" BorderThickness="1">
-                <TextBlock x:Name="OutputTerminal"
-                           Foreground="#00ff00"
-                           Margin="8,8,8,8"
-                           TextWrapping="Wrap"
-                           FontFamily="Courier New"
-                           FontSize="11"/>
-            </ScrollViewer>
+                            <!-- Weather -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="WeatherCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="Weather" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="#FFFFFF" />
+                                        <TextBlock Text="Bing Weather app" 
+                                                   FontSize="12" 
+                                                   Foreground="#888888" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
 
-            <!-- Delete Button -->
+                            <!-- News -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="NewsCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="News" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="#FFFFFF" />
+                                        <TextBlock Text="Microsoft News app" 
+                                                   FontSize="12" 
+                                                   Foreground="#888888" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <!-- Media Player -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14">
+                                <CheckBox x:Name="MediaPlayerCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="Media Player" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="#FFFFFF" />
+                                        <TextBlock Text="Windows Media Player" 
+                                                   FontSize="12" 
+                                                   Foreground="#888888" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
+
+            <!-- Status Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Status" 
+                           FontSize="12" 
+                           FontWeight="Bold" 
+                           Foreground="#A0A0A0"
+                           Margin="0,0,0,4" />
+                
+                <Border Background="#2a2a2a" 
+                        BorderBrush="#3a3a3a" 
+                        BorderThickness="1" 
+                        CornerRadius="8"
+                        Padding="16">
+                    <TextBlock x:Name="StatusMessage" 
+                               Text="Ready to remove applications"
+                               TextWrapping="Wrap"
+                               Foreground="#E0E0E0"
+                               MinHeight="50"
+                               VerticalAlignment="Center" />
+                </Border>
+            </StackPanel>
+
+            <!-- Output Terminal Section -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Command Output" 
+                           FontSize="12" 
+                           FontWeight="Bold" 
+                           Foreground="#A0A0A0"
+                           Margin="0,0,0,4" />
+                
+                <Border Background="#0d1117" 
+                        BorderBrush="#30363d" 
+                        BorderThickness="1" 
+                        CornerRadius="6"
+                        Padding="0">
+                    <TextBox x:Name="OutputTerminal"
+                             Foreground="#58a6ff"
+                             Background="#0d1117"
+                             BorderThickness="0"
+                             FontFamily="Cascadia Code, Courier New"
+                             FontSize="11"
+                             Height="180"
+                             Padding="12"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             Text="Waiting for action..." />
+                </Border>
+            </StackPanel>
+
+            <!-- Action Button -->
             <Button x:Name="DeleteButton" 
                     Content="Remove Selected Apps"
-                    Padding="10,12"
-                    FontSize="14"
-                    FontWeight="Bold"/>
+                    Height="44"
+                    FontSize="15"
+                    FontWeight="SemiBold" />
         </StackPanel>
     </Border>
 </Window>
