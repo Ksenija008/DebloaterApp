@@ -29,12 +29,11 @@ public partial class MainWindow : Window
             deleteButton.Click += OnDeleteButtonClicked;
         }
 
-        // Map apps to their uninstall commands
-        // Use search patterns for AppX packages instead of package IDs
+        // Map apps to their exact package names (from official list)
         if (copilotCheckBox != null)
-            appsToUninstall[copilotCheckBox] = "Copilot";  // Will search for packages matching "Copilot"
+            appsToUninstall[copilotCheckBox] = "Microsoft.Copilot";
         if (oneDriveCheckBox != null)
-            appsToUninstall[oneDriveCheckBox] = "OneDrive";  // Will search for packages matching "OneDrive"
+            appsToUninstall[oneDriveCheckBox] = "Microsoft.OneDrive";
     }
 
     private async void OnDeleteButtonClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -166,20 +165,20 @@ public partial class MainWindow : Window
 
     private async Task UninstallViaAppxAsync(string searchPattern)
     {
-        // For built-in Windows apps, search by pattern and remove
+        // For built-in Windows apps, use exact package name
         var processInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
             Arguments = $"-NoProfile -Command \"" +
-                $"$packages = Get-AppxPackage -AllUsers | Where-Object {{$_.Name -like '*{searchPattern}*'}}; " +
-                $"if ($packages) {{ " +
-                $"  foreach ($pkg in $packages) {{ " +
-                $"    Write-Host 'Found: '$pkg.Name; " +
-                $"    Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers -ErrorAction SilentlyContinue " +
-                $"  }}; " +
-                $"  'Removed' " +
+                $"$package = Get-AppxPackage -AllUsers | Where-Object {{$_.Name -eq '{searchPattern}'}}; " +
+                $"if ($package) {{ " +
+                $"  Write-Host 'Found package: '$package.PackageFullName; " +
+                $"  Get-AppxPackage -AllUsers | Where-Object {{$_.Name -eq '{searchPattern}'}} | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; " +
+                $"  Write-Host 'Removal completed'; " +
+                $"  exit 0 " +
                 $"}} else {{ " +
-                $"  throw 'Not found' " +
+                $"  Write-Host 'Package not found'; " +
+                $"  exit 1 " +
                 $"}}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -200,22 +199,28 @@ public partial class MainWindow : Window
                     catch (OperationCanceledException)
                     {
                         process.Kill();
-                        throw new Exception($"App removal timed out.");
+                        throw new Exception($"App removal timed out after 3 minutes.");
                     }
                 }
 
                 var output = process.StandardOutput.ReadToEnd();
                 var error = process.StandardError.ReadToEnd();
 
-                // Check if app was found
-                if (output.Contains("Not found") || error.Contains("Not found"))
+                // Check for not found message
+                if (output.Contains("not found") || output.Contains("Not found"))
                 {
-                    throw new Exception($"App matching '{searchPattern}' not found on system.");
+                    throw new Exception($"Package '{searchPattern}' not found on this system.");
                 }
 
-                if (process.ExitCode != 0 && string.IsNullOrWhiteSpace(output))
+                // Exit code 1 = not found
+                if (process.ExitCode == 1)
                 {
-                    throw new Exception($"Removal failed: {error}");
+                    throw new Exception($"Package '{searchPattern}' not found. It may already be removed.");
+                }
+
+                if (process.ExitCode != 0 && process.ExitCode != 1)
+                {
+                    throw new Exception($"Removal failed with error: {error}");
                 }
             }
         }
