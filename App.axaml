@@ -6,15 +6,20 @@
     <Application.Styles>
         <FluentTheme />
         
-        <!-- Global Styles -->
+        <!-- ============================================ -->
+        <!-- GLOBAL DARK THEME STYLES                     -->
+        <!-- ============================================ -->
+        
+        <!-- Primary Button Style (default blue) -->
         <Style Selector="Button">
             <Setter Property="Padding" Value="16,10" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="CornerRadius" Value="8" />
             <Setter Property="Background" Value="#0078D4" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
             <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
 
         <Style Selector="Button:pointerover">
@@ -25,21 +30,204 @@
             <Setter Property="Background" Value="#005A9E" />
         </Style>
 
+        <Style Selector="Button:disabled">
+            <Setter Property="Background" Value="#404040" />
+            <Setter Property="Foreground" Value="#808080" />
+            <Setter Property="Cursor" Value="No" />
+        </Style>
+
+        <!-- Danger Button Style (red for delete operations) -->
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#E81E1E" />
+        </Style>
+
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#F44747" />
+        </Style>
+
+        <Style Selector="Button.danger:pressed">
+            <Setter Property="Background" Value="#C41818" />
+        </Style>
+
+        <Style Selector="Button.danger:disabled">
+            <Setter Property="Background" Value="#404040" />
+            <Setter Property="Foreground" Value="#808080" />
+        </Style>
+
+        <!-- Success Button Style (green for positive actions) -->
+        <Style Selector="Button.success">
+            <Setter Property="Background" Value="#07B14A" />
+        </Style>
+
+        <Style Selector="Button.success:pointerover">
+            <Setter Property="Background" Value="#0FD158" />
+        </Style>
+
+        <Style Selector="Button.success:pressed">
+            <Setter Property="Background" Value="#058638" />
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- CHECKBOX STYLES                              -->
+        <!-- ============================================ -->
+        <Style Selector="CheckBox">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#E0E0E0" />
+            <Setter Property="Padding" Value="12,8" />
+        </Style>
+
+        <Style Selector="CheckBox:pointerover /template/ Border#BorderElement">
+            <Setter Property="Background" Value="#333333" />
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- TEXT BLOCK STYLES                            -->
+        <!-- ============================================ -->
+        
+        <!-- Title - Large, bold, primary color -->
         <Style Selector="TextBlock.Title">
             <Setter Property="FontSize" Value="28" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Margin" Value="0,0,0,16" />
         </Style>
 
+        <!-- Subtitle - Medium size, lighter weight -->
+        <Style Selector="TextBlock.Subtitle">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Foreground" Value="#E0E0E0" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+
+        <!-- Description - Regular text with secondary color -->
         <Style Selector="TextBlock.Description">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Foreground" Value="#E0E0E0" />
             <Setter Property="LineHeight" Value="1.5" />
+            <Setter Property="Margin" Value="0,0,0,8" />
         </Style>
 
-        <Style Selector="CheckBox">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Padding" Value="12,8" />
+        <!-- Secondary Text - Smaller, dimmed -->
+        <Style Selector="TextBlock.Secondary">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#A0A0A0" />
+            <Setter Property="LineHeight" Value="1.4" />
         </Style>
+
+        <!-- Status Text - For status indicators -->
+        <Style Selector="TextBlock.Status">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#E0E0E0" />
+        </Style>
+
+        <!-- Success Status - Green text -->
+        <Style Selector="TextBlock.StatusSuccess">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#07B14A" />
+        </Style>
+
+        <!-- Error Status - Red text -->
+        <Style Selector="TextBlock.StatusError">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#E81E1E" />
+        </Style>
+
+        <!-- Warning Status - Yellow text -->
+        <Style Selector="TextBlock.StatusWarning">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#DDB100" />
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- BORDER & CONTAINER STYLES                    -->
+        <!-- ============================================ -->
+        
+        <!-- Card Style - Light background, subtle border -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#2D2D2D" />
+            <Setter Property="BorderBrush" Value="#404040" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+
+        <!-- Card Hover - Subtle highlight on hover -->
+        <Style Selector="Border.card:pointerover">
+            <Setter Property="Background" Value="#353535" />
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- SCROLL VIEWER STYLES                         -->
+        <!-- ============================================ -->
+        <Style Selector="ScrollViewer">
+            <Setter Property="Background" Value="#1E1E1E" />
+        </Style>
+
+        <!-- Dark theme scrollbar -->
+        <Style Selector="ScrollBar">
+            <Setter Property="Background" Value="#1E1E1E" />
+        </Style>
+
+        <Style Selector="ScrollBar /template/ Border#PART_Root">
+            <Setter Property="Background" Value="#1E1E1E" />
+        </Style>
+
+        <Style Selector="ScrollBar /template/ Thumb">
+            <Setter Property="Background" Value="#505050" />
+            <Setter Property="CornerRadius" Value="4" />
+        </Style>
+
+        <Style Selector="ScrollBar /template/ Thumb:pointerover">
+            <Setter Property="Background" Value="#606060" />
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- LAYOUT & SPACING STYLES                      -->
+        <!-- ============================================ -->
+        
+        <!-- StackPanel with consistent spacing -->
+        <Style Selector="StackPanel.spacing-small">
+            <Setter Property="Spacing" Value="8" />
+        </Style>
+
+        <Style Selector="StackPanel.spacing-medium">
+            <Setter Property="Spacing" Value="16" />
+        </Style>
+
+        <Style Selector="StackPanel.spacing-large">
+            <Setter Property="Spacing" Value="24" />
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- ADDITIONAL UTILITY STYLES                    -->
+        <!-- ============================================ -->
+        
+        <!-- Separator/Divider -->
+        <Style Selector="Border.divider">
+            <Setter Property="Height" Value="1" />
+            <Setter Property="Background" Value="#404040" />
+            <Setter Property="Margin" Value="0,16" />
+        </Style>
+
+        <!-- Text Input Focus State (if needed) -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#2D2D2D" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#404040" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="4" />
+        </Style>
+
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#0078D4" />
+        </Style>
+
     </Application.Styles>
 </Application>
