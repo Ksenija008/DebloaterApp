@@ -231,3 +231,4 @@
 /home/kors/DebloaterApp/obj/Release/net8.0/win-x64/DebloaterApp.pdb
 /home/kors/DebloaterApp/obj/Release/net8.0/win-x64/DebloaterApp.genruntimeconfig.cache
 /home/kors/DebloaterApp/obj/Release/net8.0/win-x64/ref/DebloaterApp.dll
+/home/kors/DebloaterApp/obj/Release/net8.0/win-x64/DebloaterApp.sourcelink.json

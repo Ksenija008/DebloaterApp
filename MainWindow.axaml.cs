@@ -106,7 +106,27 @@ public partial class MainWindow : Window
 
     private async Task UninstallAppAsync(string appId)
     {
-        // Use winget to uninstall the app with auto-confirm and silent mode
+        // First try winget
+        try
+        {
+            await UninstallViaWingetAsync(appId);
+        }
+        catch (Exception wingetError)
+        {
+            // Fall back to PowerShell app removal for built-in apps
+            try
+            {
+                await UninstallViaAppxAsync(appId);
+            }
+            catch (Exception appxError)
+            {
+                throw new Exception($"Both methods failed. Winget: {wingetError.Message}. Appx: {appxError.Message}");
+            }
+        }
+    }
+
+    private async Task UninstallViaWingetAsync(string appId)
+    {
         var processInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
@@ -121,7 +141,6 @@ public partial class MainWindow : Window
         {
             if (process != null)
             {
-                // Add a 2-minute timeout to prevent hanging
                 using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
                 {
                     try
@@ -131,7 +150,7 @@ public partial class MainWindow : Window
                     catch (OperationCanceledException)
                     {
                         process.Kill();
-                        throw new Exception($"Uninstall timed out after 2 minutes. Winget may not be installed or responding.");
+                        throw new Exception($"Winget timed out after 2 minutes.");
                     }
                 }
 
@@ -140,7 +159,49 @@ public partial class MainWindow : Window
 
                 if (process.ExitCode != 0)
                 {
-                    throw new Exception($"Failed to uninstall {appId}. Exit code: {process.ExitCode}. Error: {error}");
+                    throw new Exception($"Winget failed with exit code {process.ExitCode}");
+                }
+            }
+        }
+    }
+
+    private async Task UninstallViaAppxAsync(string appId)
+    {
+        // For built-in Windows apps, use PowerShell Get-AppxPackage
+        var processInfo = new ProcessStartInfo
+        {
+            FileName = "powershell.exe",
+            Arguments = $"-NoProfile -Command \"Get-AppxPackage *{appId}* -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; exit 0\"",
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using (var process = Process.Start(processInfo))
+        {
+            if (process != null)
+            {
+                using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
+                {
+                    try
+                    {
+                        await process.WaitForExitAsync(cts.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        process.Kill();
+                        throw new Exception($"App removal timed out.");
+                    }
+                }
+
+                var output = process.StandardOutput.ReadToEnd();
+                var error = process.StandardError.ReadToEnd();
+
+                // PowerShell removal exit code 0 is success
+                if (process.ExitCode != 0)
+                {
+                    throw new Exception($"App removal failed with exit code {process.ExitCode}");
                 }
             }
         }
