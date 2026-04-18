@@ -42,16 +42,12 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="CopilotCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
                                         <TextBlock Text="✨" FontSize="20" VerticalAlignment="Center" />
-                                        <StackPanel Spacing="4" VerticalAlignment="Center">
-                                            <TextBlock Text="Microsoft Copilot" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#FFFFFF" />
-                                            <TextBlock Text="AI-powered assistant" 
-                                                       FontSize="12" 
-                                                       Foreground="#888888" />
-                                        </StackPanel>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Microsoft Copilot" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (AI assistant)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -63,16 +59,12 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="OneDriveCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
                                         <TextBlock Text="☁️" FontSize="20" VerticalAlignment="Center" />
-                                        <StackPanel Spacing="4" VerticalAlignment="Center">
-                                            <TextBlock Text="OneDrive" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#FFFFFF" />
-                                            <TextBlock Text="Cloud storage service" 
-                                                       FontSize="12" 
-                                                       Foreground="#888888" />
-                                        </StackPanel>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="OneDrive" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Cloud storage)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -84,16 +76,12 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="CalculatorCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
                                         <TextBlock Text="🧮" FontSize="20" VerticalAlignment="Center" />
-                                        <StackPanel Spacing="4" VerticalAlignment="Center">
-                                            <TextBlock Text="Calculator" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#FFFFFF" />
-                                            <TextBlock Text="Windows Calculator app" 
-                                                       FontSize="12" 
-                                                       Foreground="#888888" />
-                                        </StackPanel>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Calculator" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Basic app)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -105,16 +93,12 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="WeatherCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
                                         <TextBlock Text="🌤️" FontSize="20" VerticalAlignment="Center" />
-                                        <StackPanel Spacing="4" VerticalAlignment="Center">
-                                            <TextBlock Text="Weather" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#FFFFFF" />
-                                            <TextBlock Text="Bing Weather app" 
-                                                       FontSize="12" 
-                                                       Foreground="#888888" />
-                                        </StackPanel>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Weather" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Bing Weather)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -126,16 +110,12 @@
                                     BorderThickness="0,0,0,1">
                                 <CheckBox x:Name="NewsCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
                                         <TextBlock Text="📰" FontSize="20" VerticalAlignment="Center" />
-                                        <StackPanel Spacing="4" VerticalAlignment="Center">
-                                            <TextBlock Text="News" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#FFFFFF" />
-                                            <TextBlock Text="Microsoft News app" 
-                                                       FontSize="12" 
-                                                       Foreground="#888888" />
-                                        </StackPanel>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="News" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Microsoft News)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>
@@ -145,16 +125,95 @@
                                     Padding="16,14">
                                 <CheckBox x:Name="MediaPlayerCheckBox" 
                                           Padding="0">
-                                    <StackPanel Spacing="12" Orientation="Horizontal">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
                                         <TextBlock Text="🎵" FontSize="20" VerticalAlignment="Center" />
-                                        <StackPanel Spacing="4" VerticalAlignment="Center">
-                                            <TextBlock Text="Media Player" 
-                                                       FontWeight="SemiBold" 
-                                                       Foreground="#FFFFFF" />
-                                            <TextBlock Text="Windows Media Player" 
-                                                       FontSize="12" 
-                                                       Foreground="#888888" />
-                                        </StackPanel>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Media Player" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Windows app)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <!-- Xbox Gaming -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="XboxCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                        <TextBlock Text="🎮" FontSize="20" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Xbox Gaming" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Gaming service - 500MB+)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <!-- Cortana -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="CortanaCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                        <TextBlock Text="🔊" FontSize="20" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Cortana" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Voice assistant - 100MB+)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <!-- Solitaire & Candy Crush -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="GamesCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                        <TextBlock Text="🃏" FontSize="20" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Games Bundle" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Solitaire, Candy Crush)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <!-- Movies & TV -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14"
+                                    BorderBrush="#3a3a3a"
+                                    BorderThickness="0,0,0,1">
+                                <CheckBox x:Name="MoviesCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                        <TextBlock Text="🎬" FontSize="20" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Movies &amp; TV" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Media app - 100MB+)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <!-- Photos App -->
+                            <Border Background="Transparent" 
+                                    Padding="16,14">
+                                <CheckBox x:Name="PhotosCheckBox" 
+                                          Padding="0">
+                                    <StackPanel Spacing="12" Orientation="Horizontal" Margin="8,0,0,0">
+                                        <TextBlock Text="📸" FontSize="20" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="Photos App" FontWeight="SemiBold" Foreground="#FFFFFF" />
+                                            <Run Text=" (Image viewer - 100MB+)" Foreground="#888888" FontSize="12" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </CheckBox>
                             </Border>

@@ -19,7 +19,13 @@ public partial class MainWindow : Window
         { "Microsoft.WindowsCalculator", "Calculator" },
         { "Microsoft.BingWeather", "Weather" },
         { "Microsoft.News", "News" },
-        { "Microsoft.ZuneMusic", "Media Player" }
+        { "Microsoft.ZuneMusic", "Media Player" },
+        { "Microsoft.XboxGamingOverlay", "Xbox Gaming" },
+        { "Microsoft.549981C3F5F10", "Cortana" },
+        { "Microsoft.MicrosoftSolitaireCollection", "Solitaire" },
+        { "king.com.CandyCrush", "Candy Crush" },
+        { "Microsoft.ZuneVideo", "Movies & TV" },
+        { "Microsoft.Windows.Photos", "Photos" }
     };
 
     private Dictionary<CheckBox, string> appsToUninstall = new();
@@ -44,6 +50,11 @@ public partial class MainWindow : Window
         var weatherCheckBox = this.FindControl<CheckBox>("WeatherCheckBox");
         var newsCheckBox = this.FindControl<CheckBox>("NewsCheckBox");
         var mediaPlayerCheckBox = this.FindControl<CheckBox>("MediaPlayerCheckBox");
+        var xboxCheckBox = this.FindControl<CheckBox>("XboxCheckBox");
+        var cortanaCheckBox = this.FindControl<CheckBox>("CortanaCheckBox");
+        var gamesCheckBox = this.FindControl<CheckBox>("GamesCheckBox");
+        var moviesCheckBox = this.FindControl<CheckBox>("MoviesCheckBox");
+        var photosCheckBox = this.FindControl<CheckBox>("PhotosCheckBox");
 
         if (deleteButton != null)
         {
@@ -62,6 +73,18 @@ public partial class MainWindow : Window
             appsToUninstall[newsCheckBox] = "Microsoft.News";
         if (mediaPlayerCheckBox != null)
             appsToUninstall[mediaPlayerCheckBox] = "Microsoft.ZuneMusic";
+        if (xboxCheckBox != null)
+            appsToUninstall[xboxCheckBox] = "Microsoft.XboxGamingOverlay";
+        if (cortanaCheckBox != null)
+            appsToUninstall[cortanaCheckBox] = "Microsoft.549981C3F5F10";
+        if (gamesCheckBox != null)
+        {
+            appsToUninstall[gamesCheckBox] = "Microsoft.MicrosoftSolitaireCollection|king.com.CandyCrush";
+        }
+        if (moviesCheckBox != null)
+            appsToUninstall[moviesCheckBox] = "Microsoft.ZuneVideo";
+        if (photosCheckBox != null)
+            appsToUninstall[photosCheckBox] = "Microsoft.Windows.Photos";
     }
 
     /// <summary>
