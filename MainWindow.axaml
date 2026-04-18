@@ -50,6 +50,20 @@
                        Foreground="Gray"
                        MinHeight="40"/>
 
+            <!-- Output Terminal -->
+            <TextBlock Text="Command Output:" 
+                       Margin="0,0,0,5"
+                       FontSize="12"
+                       FontWeight="Bold"/>
+            <ScrollViewer Height="150" Margin="0,0,0,15" Background="#1e1e1e" BorderBrush="#ccc" BorderThickness="1">
+                <TextBlock x:Name="OutputTerminal"
+                           Foreground="#00ff00"
+                           Margin="8,8,8,8"
+                           TextWrapping="Wrap"
+                           FontFamily="Courier New"
+                           FontSize="11"/>
+            </ScrollViewer>
+
             <!-- Delete Button -->
             <Button x:Name="DeleteButton" 
                     Content="Remove Selected Apps"

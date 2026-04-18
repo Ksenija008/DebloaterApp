@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DebloaterApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4dccd01327e8dda79dfd445361d3897cebce71a5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c233e8b5da865ff544d794a57342a62dfa517477")]
 [assembly: System.Reflection.AssemblyProductAttribute("DebloaterApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DebloaterApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
