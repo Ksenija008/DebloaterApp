@@ -30,10 +30,11 @@ public partial class MainWindow : Window
         }
 
         // Map apps to their uninstall commands
+        // Use search patterns for AppX packages instead of package IDs
         if (copilotCheckBox != null)
-            appsToUninstall[copilotCheckBox] = "Microsoft.Copilot";
+            appsToUninstall[copilotCheckBox] = "Copilot";  // Will search for packages matching "Copilot"
         if (oneDriveCheckBox != null)
-            appsToUninstall[oneDriveCheckBox] = "Microsoft.OneDrive";
+            appsToUninstall[oneDriveCheckBox] = "OneDrive";  // Will search for packages matching "OneDrive"
     }
 
     private async void OnDeleteButtonClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -127,7 +128,7 @@ public partial class MainWindow : Window
         var processInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -Command \"winget uninstall --id {appId} -e --accept-source-agreements --accept-package-agreements -h 2>&1\"",
+            Arguments = $"-NoProfile -Command \"winget uninstall --id {appId} -e --accept-source-agreements -h 2>&1\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -163,14 +164,23 @@ public partial class MainWindow : Window
         }
     }
 
-    private async Task UninstallViaAppxAsync(string appId)
+    private async Task UninstallViaAppxAsync(string searchPattern)
     {
-        // For built-in Windows apps, use PowerShell Get-AppxPackage
-        // This searches for packages matching the pattern and removes them
+        // For built-in Windows apps, search by pattern and remove
         var processInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -Command \"$packages = Get-AppxPackage -AllUsers | Where-Object {{$_.Name -like '*{appId}*'}}; if ($packages) {{ $packages | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue; 'Removed'; exit 0 }} else {{ 'Not found'; exit 1 }}\"",
+            Arguments = $"-NoProfile -Command \"" +
+                $"$packages = Get-AppxPackage -AllUsers | Where-Object {{$_.Name -like '*{searchPattern}*'}}; " +
+                $"if ($packages) {{ " +
+                $"  foreach ($pkg in $packages) {{ " +
+                $"    Write-Host 'Found: '$pkg.Name; " +
+                $"    Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers -ErrorAction SilentlyContinue " +
+                $"  }}; " +
+                $"  'Removed' " +
+                $"}} else {{ " +
+                $"  throw 'Not found' " +
+                $"}}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -194,13 +204,18 @@ public partial class MainWindow : Window
                     }
                 }
 
-                var output = process.StandardOutput.ReadToEnd().Trim();
+                var output = process.StandardOutput.ReadToEnd();
                 var error = process.StandardError.ReadToEnd();
 
-                // Check if app was found and removed
-                if (output.Contains("Not found") || (process.ExitCode != 0 && string.IsNullOrEmpty(output)))
+                // Check if app was found
+                if (output.Contains("Not found") || error.Contains("Not found"))
                 {
-                    throw new Exception($"App '{appId}' not found on system or removal failed.");
+                    throw new Exception($"App matching '{searchPattern}' not found on system.");
+                }
+
+                if (process.ExitCode != 0 && string.IsNullOrWhiteSpace(output))
+                {
+                    throw new Exception($"Removal failed: {error}");
                 }
             }
         }
