@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,6 +34,7 @@ public partial class MainWindow : Window
     private Button? deleteButton;
     private TextBlock? statusMessage;
     private TextBox? outputTerminal;
+    private Image? successImage;
 
     public MainWindow()
     {
@@ -45,6 +47,7 @@ public partial class MainWindow : Window
         deleteButton = this.FindControl<Button>("DeleteButton");
         statusMessage = this.FindControl<TextBlock>("StatusMessage");
         outputTerminal = this.FindControl<TextBox>("OutputTerminal");
+        successImage = this.FindControl<Image>("SuccessImage");
         var copilotCheckBox = this.FindControl<CheckBox>("CopilotCheckBox");
         var oneDriveCheckBox = this.FindControl<CheckBox>("OneDriveCheckBox");
         var calculatorCheckBox = this.FindControl<CheckBox>("CalculatorCheckBox");
@@ -223,6 +226,12 @@ public partial class MainWindow : Window
             : $"✓ {successCount} removed, ✗ {failureCount} failed";
 
         UpdateStatus(summaryMessage, allSuccessful ? Colors.Green : Colors.Orange);
+
+        // Show success image if all operations were successful
+        if (allSuccessful && results.Count > 0)
+        {
+            ShowSuccessImage();
+        }
 
         // Uncheck successful removals
         foreach (var (appId, success, _) in results.Where(r => r.success))
@@ -425,6 +434,40 @@ if ($package) {{
             }
 
             AppendOutput($"✓ {methodName} completed successfully (exit code 0)");
+        }
+    }
+
+    private void ShowSuccessImage()
+    {
+        if (successImage == null)
+            return;
+
+        try
+        {
+            // Try to load image from Assets/success.png
+            string imagePath = Path.Combine(AppContext.BaseDirectory, "Assets", "success.png");
+            
+            if (!File.Exists(imagePath))
+            {
+                // Try relative path from exe
+                var alternativePath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "success.png");
+                if (File.Exists(alternativePath))
+                    imagePath = alternativePath;
+                else
+                    return; // Image not found, silently skip
+            }
+
+            // Load and display the image
+            using (var stream = File.OpenRead(imagePath))
+            {
+                var bitmap = new Bitmap(stream);
+                successImage.Source = bitmap;
+                successImage.IsVisible = true;
+            }
+        }
+        catch
+        {
+            // Silently fail if image can't be loaded
         }
     }
 }

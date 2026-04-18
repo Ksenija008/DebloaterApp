@@ -11,14 +11,15 @@
 
     <Border Padding="24">
         <Grid ColumnDefinitions="*,380">
-            <StackPanel Grid.Column="0" Spacing="20">
-            <!-- Header Section -->
-            <StackPanel Spacing="8">
-                <TextBlock Classes="Title" 
-                           Text="Windows Debloater" />
-                <TextBlock Classes="Description" 
-                           Text="Select bloatware to remove from your system" />
-            </StackPanel>
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="20">
+                <!-- Header Section -->
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="Title" 
+                               Text="Windows Debloater" />
+                    <TextBlock Classes="Description" 
+                               Text="Select bloatware to remove from your system" />
+                </StackPanel>
 
             <!-- Apps Section -->
             <StackPanel Spacing="12">
@@ -333,7 +334,17 @@
                     Height="44"
                     FontSize="15"
                     FontWeight="SemiBold" />
-        </StackPanel>
+            
+            <!-- Success Image (Hidden by default, shown on completion) -->
+            <Image x:Name="SuccessImage" 
+                   IsVisible="False"
+                   Width="180"
+                   Height="180"
+                   HorizontalAlignment="Center"
+                   Margin="0,20,0,0"
+                   RenderTransform="scale(1)" />
+                </StackPanel>
+            </ScrollViewer>
 
         <!-- Output Terminal Section (Right Side) -->
         <StackPanel Grid.Column="1" Spacing="8" Margin="16,0,0,0">
